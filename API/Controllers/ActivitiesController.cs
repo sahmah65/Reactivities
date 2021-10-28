@@ -1,4 +1,5 @@
 ﻿using Application.Activities;
+using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace API.Controllers
       
 
         [HttpGet]
-        public async Task<ActionResult> GetActivities()
+        public async Task<ActionResult> GetActivities([FromQuery]ActivityParams param)
         {
             //return BadRequest("This is a bad request");
-             return HandleResult( await Mediator.Send(new List.Query()));
+             return HandlePagedResult( await Mediator.Send(new List.Query{Params = param}));
         }
 
         
